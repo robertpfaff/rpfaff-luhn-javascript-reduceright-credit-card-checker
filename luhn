@@ -1,3 +1,5 @@
+// Luhn Credit Card Authenticator
+
 // All valid credit card numbers
 const valid1 = [4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8]; //true
 const valid2 = [5, 5, 3, 5, 7, 6, 6, 7, 6, 8, 7, 5, 1, 4, 3, 9]; // true
@@ -45,11 +47,13 @@ const batch = [
 // 1. The card number is not = 16
 // 2. It does not meet the Luhn criteria
 
+// performs check on all arrays in nested array
 const findInvalidCards = (nestedArray) => {
     
     let falseCreditCards = [];
     let trueCreditCards = [];
-  
+
+// validates card numbers per luhn criteria  
   const validateCred = (array) => {
     let falseCreditCards = [];
     let trueCreditCards = [];
@@ -62,16 +66,41 @@ const findInvalidCards = (nestedArray) => {
     result && (array.length == 16) ? trueCreditCards.push(array) : falseCreditCards.push(array);
 }
 
+// stores arrays of <> 16 digits as invalid.
 nestedArray.forEach(array => {
      if (array.length !== 16) {
       falseCreditCards.push(array)
       } else {
       validateCred(array);
 }});
+
+// prints invalid cards
 console.log()
 console.log("Invalid Credit Cards:")
 console.log()
 falseCreditCards.forEach(card => console.log(card))
-};
+console.log()
 
+// now id the credit card companies
+const idInvalidCardCompanies = nestedArray => {
+  nestedArray.forEach(array => {
+    switch (Number(array.slice(0,1))) {
+      case 3:
+      console.log("American Express");
+      break;
+      case 4:
+      console.log("Visa");
+      break;
+      case 5:
+      console.log("MasterCard");
+      break;
+      case 6:
+      console.log("Discover");
+      break;
+    default:
+      console.log("Company not found.")
+}
+})};
+idInvalidCardCompanies(falseCreditCards)
+};
 findInvalidCards(batch)

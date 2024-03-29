@@ -43,17 +43,23 @@ const batch = [
 // Add your functions below:
 
 
+// Luhn Credit Card Authenticator
+
 // Cards are invalid for two reasons
 // 1. The card number is not = 16
 // 2. It does not meet the Luhn criteria
 
-// performs check on all arrays in nested array
+// Performs Luhn check on all arrays in nested array
+// By calling validateCred()
+
 const findInvalidCards = (nestedArray) => {
     
     let falseCreditCards = [];
     let trueCreditCards = [];
 
-// validates card numbers per luhn criteria  
+// Function call validates card numbers per Luhn criteria
+// Uses reduceRight method to iterate right to left.
+
   const validateCred = (array) => {
     let falseCreditCards = [];
     let trueCreditCards = [];
@@ -66,7 +72,8 @@ const findInvalidCards = (nestedArray) => {
     result && (array.length == 16) ? trueCreditCards.push(array) : falseCreditCards.push(array);
 }
 
-// stores arrays of <> 16 digits as invalid.
+// Stores arrays of more/less than 16 digits with invalid cards.
+
 nestedArray.forEach(array => {
      if (array.length !== 16) {
       falseCreditCards.push(array)
@@ -74,16 +81,19 @@ nestedArray.forEach(array => {
       validateCred(array);
 }});
 
-// prints invalid cards
+// Prints invalid card numbers
+// As array of arrays 
+
 console.log()
 console.log("Invalid Credit Cards:")
 console.log()
 falseCreditCards.forEach(card => console.log(card))
 console.log()
 
-// now id the credit card companies
+// Now ID the credit card companies
 const idInvalidCardCompanies = nestedArray => {
   nestedArray.forEach(array => {
+    // Slice first digit only without mutation
     switch (Number(array.slice(0,1))) {
       case 3:
       console.log("American Express");
@@ -101,6 +111,10 @@ const idInvalidCardCompanies = nestedArray => {
       console.log("Company not found.")
 }
 })};
+
+// Function call ID invalid card companies
 idInvalidCardCompanies(falseCreditCards)
 };
+
+// Function call find invalid calls
 findInvalidCards(batch)
